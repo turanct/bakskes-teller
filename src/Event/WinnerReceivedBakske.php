@@ -6,7 +6,7 @@ use Teller\BakskeId;
 use Teller\UserId;
 use DateTime;
 
-final class BakskeWasReceived implements Event
+final class WinnerReceivedBakske implements Event
 {
     private $bakske;
     private $userId;

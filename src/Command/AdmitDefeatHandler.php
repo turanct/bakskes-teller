@@ -17,7 +17,7 @@ final class AdmitDefeatHandler
     {
         $bakske = $this->repository->getById($command->bakske);
 
-        $bakske->admitDefeat($command->userId);
+        $bakske->admitDefeat($command->loserId);
 
         $this->repository->persist($bakske);
     }

@@ -4,7 +4,7 @@ namespace Teller;
 
 use Teller\Event\BakskeWasClaimed;
 use Teller\Event\LoserAdmittedDefeat;
-use Teller\Event\BakskeWasReceived;
+use Teller\Event\WinnerReceivedBakske;
 use DateTime;
 
 date_default_timezone_set('Europe/Brussels');
@@ -48,7 +48,7 @@ class BakskesRepositoryTest extends \PHPUnit_Framework_TestCase
             $loser,
             new DateTime('now')
         );
-        $event2 = new BakskeWasReceived(
+        $event2 = new WinnerReceivedBakske(
             $id,
             $winner,
             new DateTime('now')

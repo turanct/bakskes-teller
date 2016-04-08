@@ -17,8 +17,8 @@ final class ClaimBakskeHandler
     public function handle(ClaimBakske $command)
     {
         $bakske = Bakske::claim(
-            $command->by,
-            $command->from,
+            $command->winners,
+            $command->losers,
             $command->howmany,
         );
 

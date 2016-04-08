@@ -17,7 +17,7 @@ final class ReceiveBakskeHandler
     {
         $bakske = $this->repository->getById($command->bakske);
 
-        $bakske->receive($command->userId);
+        $bakske->receive($command->winner);
 
         $this->repository->persist($bakske);
     }

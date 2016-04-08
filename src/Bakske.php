@@ -4,7 +4,7 @@ namespace Teller;
 
 use Teller\Event\BakskeWasClaimed;
 use Teller\Event\LoserAdmittedDefeat;
-use Teller\Event\BakskeWasReceived;
+use Teller\Event\WinnerReceivedBakske;
 use Teller\Exception\OnlyLosersCanAdmitDefeat;
 use Teller\Exception\CanNotAdmitDefeatTwice;
 use Teller\Exception\OnlyWinnersCanReceiveBakskes;
@@ -83,14 +83,14 @@ final class Bakske
         // Can receive bakskes only once
         foreach ($this->events as $pastEvent) {
             if (
-                $pastEvent instanceof BakskeWasReceived
+                $pastEvent instanceof WinnerReceivedBakske
                 && $pastEvent->getUserId() == $winner
             ) {
                 throw new CanNotReceiveBakskesTwice('"' . $winner . '" already received a bakske');
             }
         }
 
-        $event = new BakskeWasReceived(
+        $event = new WinnerReceivedBakske(
             $this->id,
             $winner,
             new DateTime('now')

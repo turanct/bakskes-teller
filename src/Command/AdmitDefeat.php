@@ -8,17 +8,17 @@ use Teller\UserId;
 final class AdmitDefeat
 {
     public $bakske;
-    public $userId;
+    public $loserId;
 
     /**
      * Claim a bakske
      *
-     * @param BakskeId $bakske The identifier for this bakske
-     * @param UserId   $userId The user that's admitting defeat
+     * @param BakskeId $bakske  The identifier for this bakske
+     * @param UserId   $loserId The user that's admitting defeat
      */
-    public function __construct(BakskeId $bakske, UserId $userId)
+    public function __construct(BakskeId $bakske, UserId $loserId)
     {
         $this->bakske = $bakske;
-        $this->userId = $userId;
+        $this->loserId = $loserId;
     }
 }
