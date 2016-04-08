@@ -2,35 +2,26 @@
 
 namespace Teller\Command;
 
-use Teller\Event\BakskeWasClaimed;
-use Teller\Event\EventStream;
-use Teller\Notifier;
-use Teller\BakskeId;
-use DateTime;
+use Teller\Bakske;
+use Teller\BakskesRepository;
 
 final class ClaimBakskeHandler
 {
-    private $eventstream;
-    private $notifier;
+    private $repository;
 
-    public function __construct(EventStream $eventstream, Notifier $notifier)
+    public function __construct(BakskesRepository $repository)
     {
-        $this->eventstream = $eventstream;
-        $this->notifier = $notifier;
+        $this->repository = $repository;
     }
 
     public function handle(ClaimBakske $command)
     {
-        $event = new BakskeWasClaimed(
-            $command->bakske,
+        $bakske = Bakske::claim(
             $command->by,
             $command->from,
             $command->howmany,
-            new DateTime('now')
         );
 
-        $this->eventstream->append($event);
-
-        $this->notifier->askToAdmitDefeat($event);
+        $this->repository->persist($bakske);
     }
 }

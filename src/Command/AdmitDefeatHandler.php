@@ -2,28 +2,23 @@
 
 namespace Teller\Command;
 
-use Teller\Event\LoserAdmittedDefeat;
-use Teller\Event\EventStream;
-use Teller\BakskeId;
-use DateTime;
+use Teller\BakskesRepository;
 
 final class AdmitDefeatHandler
 {
-    private $eventstream;
+    private $repository;
 
-    public function __construct(EventStream $eventstream)
+    public function __construct(BakskesRepository $repository)
     {
-        $this->eventstream = $eventstream;
+        $this->repository = $repository;
     }
 
     public function handle(AdmitDefeat $command)
     {
-        $event = new LoserAdmittedDefeat(
-            $command->bakske,
-            $command->userId,
-            new DateTime('now')
-        );
+        $bakske = $this->repository->getById($command->bakske);
 
-        $this->eventstream->append($event);
+        $bakske->admitDefeat($command->userId);
+
+        $this->repository->persist($bakske);
     }
 }
