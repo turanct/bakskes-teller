@@ -2,7 +2,10 @@
 
 namespace Teller\Event;
 
-final class BakskeWasClaimed
+use Teller\BakskeId;
+use DateTime;
+
+final class BakskeWasClaimed implements Event
 {
     private $bakske;
     private $by;

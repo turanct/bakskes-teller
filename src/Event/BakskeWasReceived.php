@@ -2,7 +2,7 @@
 
 namespace Teller\Event;
 
-final class BakskeWasReceived
+final class BakskeWasReceived implements Event
 {
     private $bakske;
     private $when;

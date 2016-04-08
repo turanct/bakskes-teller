@@ -2,7 +2,7 @@
 
 namespace Teller\Event;
 
-final class LoserAdmittedDefeat
+final class LoserAdmittedDefeat implements Event
 {
     private $bakske;
     private $loser;
