@@ -7,8 +7,8 @@ final class BakskeWasClaimed
     private $bakske;
     private $by;
     private $from;
-    private $when;
     private $howmany;
+    private $when;
 
     /**
      * A bakske was claimed
@@ -16,21 +16,21 @@ final class BakskeWasClaimed
      * @param BakskeId $bakske  The identifier for this bakske
      * @param UserId[] $by      A list of user identifiers
      * @param UserId[] $from    A list of user identifiers
-     * @param DateTime $when    When?
      * @param int      $howmany How many bakskes were claimed?
+     * @param DateTime $when    When?
      */
     public function __construct(
         BakskeId $bakske,
         array $by,
         array $from,
-        DateTime $when,
-        $howmany = 1
+        $howmany = 1,
+        DateTime $when
     ) {
         $this->bakske = $bakske;
         $this->by = $by;
         $this->from = $from;
-        $this->when = $when;
         $this->howmany = (int) $howmany;
+        $this->when = $when;
     }
 
     public function getBakske()
@@ -48,13 +48,13 @@ final class BakskeWasClaimed
         return $this->from;
     }
 
-    public function getWhen()
-    {
-        return $this->when;
-    }
-
     public function getHowMany()
     {
         return $this->howmany;
+    }
+
+    public function getWhen()
+    {
+        return $this->when;
     }
 }
