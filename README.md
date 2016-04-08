@@ -1,5 +1,7 @@
 # Bakskes Teller
 
+[![Travis CI](https://api.travis-ci.org/turanct/bakskes-teller.svg?branch=master)](https://travis-ci.org/turanct/bakskes-teller)
+
 ![Bakske Bier](http://skylimiet.weebly.com/uploads/5/6/0/9/56092199/s914222581721252391_p2_i6_w500.jpeg)
 
 ## Goal
