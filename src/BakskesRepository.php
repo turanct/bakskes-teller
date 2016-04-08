@@ -22,7 +22,7 @@ final class BakskesRepository
 
     public function persist(Bakske $bakske)
     {
-        foreach($bakske->getRecordedEvents() as $event) {
+        foreach ($bakske->getRecordedEvents() as $event) {
             $this->eventstream->append($event);
         }
     }
