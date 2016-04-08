@@ -14,6 +14,8 @@ Count bakskes
 3. If all losers admitted defeat, winners are notified they'll get their bakske
 4. Winners can indicate when they got their bakske
 
+![Flow](https://i.imgur.com/lKhlBhv.jpg)
+
 
 ## Implementation
 
