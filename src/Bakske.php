@@ -5,6 +5,8 @@ namespace Teller;
 use Teller\Event\BakskeWasClaimed;
 use Teller\Event\LoserAdmittedDefeat;
 use Teller\Event\BakskeWasReceived;
+use Teller\Exception\OnlyLosersCanAdmitDefeat;
+use Teller\Exception\CanNotAdmitDefeatTwice;
 use DateTime;
 
 final class Bakske
@@ -40,6 +42,24 @@ final class Bakske
 
     public function admitDefeat(UserId $loser)
     {
+        $claimEvent = reset($this->events);
+
+        // Only losers can admit defeat
+        $losers = $claimEvent->getFrom();
+        if (!in_array($loser, $losers)) {
+            throw new OnlyLosersCanAdmitDefeat('"' . $loser . '" is not a loser');
+        }
+
+        // Can admit defeat only once
+        foreach ($this->events as $pastEvent) {
+            if (
+                $pastEvent instanceof LoserAdmittedDefeat
+                && $pastEvent->getLoser() == $loser
+            ) {
+                throw new CanNotAdmitDefeatTwice('"' . $loser . '" already admitted defeat');
+            }
+        }
+
         $event = new LoserAdmittedDefeat(
             $this->id,
             $loser,

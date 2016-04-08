@@ -54,6 +54,57 @@ class BakskeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedEvents, $bakske->getRecordedEvents());
     }
 
+    /**
+     * @expectedException Teller\Exception\OnlyLosersCanAdmitDefeat
+     */
+    public function test_it_does_not_allow_anyone_else_to_admit_defeat()
+    {
+        $id = new BakskeId('test');
+        $winner = new UserId('toon');
+        $loser = new UserId('joachim');
+        $now = new DateTime('now');
+
+        $existingEvents = array(
+            new BakskeWasClaimed(
+                $id,
+                array($winner),
+                array($loser),
+                1,
+                $now
+            ),
+        );
+
+        $bakske = new Bakske($id, $existingEvents);
+
+        $bakske->admitDefeat($winner);
+    }
+
+    /**
+     * @expectedException Teller\Exception\CanNotAdmitDefeatTwice
+     */
+    public function test_it_does_not_allow_to_admit_defeat_twice()
+    {
+        $id = new BakskeId('test');
+        $winner = new UserId('toon');
+        $loser = new UserId('joachim');
+        $now = new DateTime('now');
+
+        $existingEvents = array(
+            new BakskeWasClaimed(
+                $id,
+                array($winner),
+                array($loser),
+                1,
+                $now
+            ),
+        );
+
+        $bakske = new Bakske($id, $existingEvents);
+
+        $bakske->admitDefeat($loser);
+        $bakske->admitDefeat($loser);
+    }
+
     public function test_it_allows_its_winners_to_receive_a_bakske()
     {
         $id = new BakskeId('test');
