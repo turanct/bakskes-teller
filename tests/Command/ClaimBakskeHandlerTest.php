@@ -11,7 +11,7 @@ date_default_timezone_set('Europe/Brussels');
 
 class ClaimBakskeHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_it_puts_an_event_on_the_stream()
+    public function test_it_puts_an_event_on_the_stream_and_triggers_notifications()
     {
         $bakskeId = BakskeId::generate();
 
