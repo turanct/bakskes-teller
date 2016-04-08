@@ -14,6 +14,7 @@
     ],
     "require-dev": {
         "zerkalica/phpcs": "dev-master",
+        "symfony/yaml": "~2.1",
         "phpunit/phpunit": "^4.8.6"
     },
     "config": {
