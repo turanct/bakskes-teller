@@ -7,6 +7,8 @@ use Teller\Event\LoserAdmittedDefeat;
 use Teller\Event\BakskeWasReceived;
 use Teller\Exception\OnlyLosersCanAdmitDefeat;
 use Teller\Exception\CanNotAdmitDefeatTwice;
+use Teller\Exception\OnlyWinnersCanReceiveBakskes;
+use Teller\Exception\CanNotReceiveBakskesTwice;
 use DateTime;
 
 final class Bakske
@@ -42,9 +44,8 @@ final class Bakske
 
     public function admitDefeat(UserId $loser)
     {
-        $claimEvent = reset($this->events);
-
         // Only losers can admit defeat
+        $claimEvent = reset($this->events);
         $losers = $claimEvent->getFrom();
         if (!in_array($loser, $losers)) {
             throw new OnlyLosersCanAdmitDefeat('"' . $loser . '" is not a loser');
@@ -72,6 +73,23 @@ final class Bakske
 
     public function receive(UserId $winner)
     {
+        // Only winners can receive bakskes
+        $claimEvent = reset($this->events);
+        $winners = $claimEvent->getBy();
+        if (!in_array($winner, $winners)) {
+            throw new OnlyWinnersCanReceiveBakskes('"' . $winner . '" is not a winner');
+        }
+
+        // Can receive bakskes only once
+        foreach ($this->events as $pastEvent) {
+            if (
+                $pastEvent instanceof BakskeWasReceived
+                && $pastEvent->getUserId() == $winner
+            ) {
+                throw new CanNotReceiveBakskesTwice('"' . $winner . '" already received a bakske');
+            }
+        }
+
         $event = new BakskeWasReceived(
             $this->id,
             $winner,
