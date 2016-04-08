@@ -26,7 +26,7 @@ final class BakskeWasClaimed implements Event
         BakskeId $bakske,
         array $by,
         array $from,
-        $howmany = 1,
+        $howmany,
         DateTime $when
     ) {
         $this->bakske = $bakske;
