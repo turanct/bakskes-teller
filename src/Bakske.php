@@ -11,6 +11,7 @@ final class Bakske
 {
     private $id;
     private $events;
+    private $recordedEvents = array();
 
     public function __construct(BakskeId $id, array $events)
     {
@@ -31,25 +32,34 @@ final class Bakske
             new DateTime('now')
         );
 
-        return new static($id, $events);
+        $bakske = new static($id, $events);
+        $bakske->recordedEvents = $events;
+
+        return $bakske;
     }
 
     public function admitDefeat(UserId $loser)
     {
-        $this->events[] = new LoserAdmittedDefeat(
+        $event = new LoserAdmittedDefeat(
             $this->id,
             $loser,
             new DateTime('now')
         );
+
+        $this->events[] = $event;
+        $this->recordedEvents[] = $event;
     }
 
     public function receive(UserId $winner)
     {
-        $this->events[] = new BakskeWasReceived(
+        $event = new BakskeWasReceived(
             $this->id,
             $winner,
             new DateTime('now')
         );
+
+        $this->events[] = $event;
+        $this->recordedEvents[] = $event;
     }
 
     public function getId()
@@ -59,6 +69,6 @@ final class Bakske
 
     public function getRecordedEvents()
     {
-        return $this->events;
+        return $this->recordedEvents;
     }
 }

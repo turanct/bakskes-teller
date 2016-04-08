@@ -34,7 +34,7 @@ class BakskeTest extends \PHPUnit_Framework_TestCase
         $loser = new UserId('joachim');
         $now = new DateTime('now');
 
-        $recordedEvents = array(
+        $existingEvents = array(
             new BakskeWasClaimed(
                 $id,
                 array(new UserId('toon')),
@@ -44,11 +44,11 @@ class BakskeTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $bakske = new Bakske($id, $recordedEvents);
+        $bakske = new Bakske($id, $existingEvents);
 
         $bakske->admitDefeat($loser);
 
-        $expectedEvents = $recordedEvents;
+        $expectedEvents = array();
         $expectedEvents[] = new LoserAdmittedDefeat($id, $loser, $now);
 
         $this->assertEquals($expectedEvents, $bakske->getRecordedEvents());
@@ -61,7 +61,7 @@ class BakskeTest extends \PHPUnit_Framework_TestCase
         $loser = new UserId('joachim');
         $now = new DateTime('now');
 
-        $recordedEvents = array(
+        $existingEvents = array(
             new BakskeWasClaimed(
                 $id,
                 array($winner),
@@ -72,11 +72,11 @@ class BakskeTest extends \PHPUnit_Framework_TestCase
             new LoserAdmittedDefeat($id, $loser, $now),
         );
 
-        $bakske = new Bakske($id, $recordedEvents);
+        $bakske = new Bakske($id, $existingEvents);
 
         $bakske->receive($winner);
 
-        $expectedEvents = $recordedEvents;
+        $expectedEvents = array();
         $expectedEvents[] = new BakskeWasReceived($id, $winner, $now);
 
         $this->assertEquals($expectedEvents, $bakske->getRecordedEvents());

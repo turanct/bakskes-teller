@@ -4,6 +4,7 @@ namespace Teller;
 
 use Teller\Event\BakskeWasClaimed;
 use Teller\Event\LoserAdmittedDefeat;
+use Teller\Event\BakskeWasReceived;
 use DateTime;
 
 date_default_timezone_set('Europe/Brussels');
@@ -35,16 +36,21 @@ class BakskesRepositoryTest extends \PHPUnit_Framework_TestCase
         $id = new BakskeId('foo');
         $winner = new UserId('Toon');
         $loser = new UserId('Joachim');
-        $event1 = new BakskeWasClaimed(
+        $claimEvent = new BakskeWasClaimed(
             $id,
             array($winner),
             array($loser),
             1,
             new DateTime('now')
         );
-        $event2 = new LoserAdmittedDefeat(
+        $event1 = new LoserAdmittedDefeat(
             $id,
             $loser,
+            new DateTime('now')
+        );
+        $event2 = new BakskeWasReceived(
+            $id,
+            $winner,
             new DateTime('now')
         );
 
@@ -60,7 +66,10 @@ class BakskesRepositoryTest extends \PHPUnit_Framework_TestCase
 
         $repository = new BakskesRepository($stream);
 
-        $bakske = new Bakske($id, array($event1, $event2));
+        $bakske = new Bakske($id, array($claimEvent));
+
+        $bakske->admitDefeat($loser);
+        $bakske->receive($winner);
 
         $repository->persist($bakske);
     }
