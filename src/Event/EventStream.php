@@ -2,6 +2,8 @@
 
 namespace Teller\Event;
 
+use Teller\BakskeId;
+
 interface EventStream
 {
     /**
@@ -10,4 +12,11 @@ interface EventStream
      * @param Event $event
      */
     public function append(Event $event);
+
+    /**
+     * Get the events for a certain Aggregate
+     *
+     * @param BakskeId $aggregateId
+     */
+    public function getEventsForAggregate(BakskeId $aggregateId);
 }
