@@ -1,8 +1,8 @@
 <?php
 
-namespace Teller\Event;
+namespace Teller;
 
-use Teller\BakskeId;
+use Teller\Event\Event;
 
 interface EventStream
 {

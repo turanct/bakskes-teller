@@ -15,7 +15,7 @@ class BakskesRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $id = new BakskeId('foo');
 
-        $stream = $this->getMockBuilder('\\Teller\\Event\\EventStream')->getMock();
+        $stream = $this->getMockBuilder('\\Teller\\EventStream')->getMock();
         $stream
             ->expects($this->once())
             ->method('getEventsForAggregate')
@@ -54,7 +54,7 @@ class BakskesRepositoryTest extends \PHPUnit_Framework_TestCase
             new DateTime('now')
         );
 
-        $stream = $this->getMockBuilder('\\Teller\\Event\\EventStream')->getMock();
+        $stream = $this->getMockBuilder('\\Teller\\EventStream')->getMock();
         $stream
             ->expects($this->exactly(2))
             ->method('append')

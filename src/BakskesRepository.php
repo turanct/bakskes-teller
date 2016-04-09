@@ -2,8 +2,6 @@
 
 namespace Teller;
 
-use Teller\Event\EventStream;
-
 final class BakskesRepository
 {
     private $eventstream;
