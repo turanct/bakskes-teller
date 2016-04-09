@@ -2,6 +2,9 @@
 
 namespace Teller\Event;
 
+use Teller\BakskeId;
+use DateTime;
+
 final class AllLosersAdmittedDefeat implements Event
 {
     private $bakske;
