@@ -32,7 +32,7 @@ final class RegistrationService
 
     public function confirm($email, $secret)
     {
-        $registration = $this->registrationRepository->getByEmail($email);
+        $registration = $this->registrationRepository->getByEmail(new Email($email));
 
         $user = $registration->confirm(new Secret($secret));
 
