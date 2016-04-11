@@ -13,7 +13,7 @@ final class Secret
 
     public static function generate()
     {
-        $secret = uniqid('Secret_', true);
+        $secret = md5(uniqid('Secret_', true));
 
         return new static($secret);
     }
