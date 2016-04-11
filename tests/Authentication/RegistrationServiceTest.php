@@ -57,6 +57,11 @@ class RegistrationServiceTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($emailInstance))
             ->willReturn($registration)
         ;
+        $repository
+            ->expects($this->once())
+            ->method('remove')
+            ->with($this->equalTo($registration))
+        ;
 
         $notifier = $this->getMockBuilder('\\Teller\\Authentication\\RegistrationNotifier')->getMock();
 

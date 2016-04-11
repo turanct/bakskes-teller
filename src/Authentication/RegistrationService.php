@@ -37,5 +37,6 @@ final class RegistrationService
         $user = $registration->confirm(new Secret($secret));
 
         $this->userRepository->persist($user);
+        $this->registrationRepository->remove($registration);
     }
 }
