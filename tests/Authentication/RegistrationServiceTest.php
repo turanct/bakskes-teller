@@ -43,26 +43,27 @@ class RegistrationServiceTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_creates_a_user_when_registration_confirmed()
     {
-        $email = 'toon@example.com';
         $name = new Name('toon');
+        $email = 'toon@example.com';
         $emailInstance = new Email($email);
-        $secret = Secret::generate();
-        $registration = new Registration($name, $emailInstance, $secret);
+        $secret = 'secret';
+        $secretInstance = new Secret($secret);
+        $registration = new Registration($name, $emailInstance, $secretInstance);
 
         $repository = $this->getMockBuilder('\\Teller\\Authentication\\RegistrationRepository')->getMock();
         $repository
             ->expects($this->once())
             ->method('getByEmail')
-            ->with($this->equalTo($email))
+            ->with($this->equalTo($emailInstance))
             ->willReturn($registration)
         ;
 
         $notifier = $this->getMockBuilder('\\Teller\\Authentication\\RegistrationNotifier')->getMock();
 
-        $checkUser = function(User $user) use ($name, $email) {
+        $checkUser = function(User $user) use ($name, $emailInstance) {
             if (
-                $user->getName() == new Name($name)
-                && $user->getEmail() == new Email($email)
+                $user->getName() == $name
+                && $user->getEmail() == $emailInstance
             ) {
                 return true;
             }
