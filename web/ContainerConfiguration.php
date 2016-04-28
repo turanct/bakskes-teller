@@ -12,10 +12,6 @@ final class ContainerConfiguration implements ServiceProviderInterface
     {
         $app->register(new ServiceControllerServiceProvider());
 
-        $app['HelloController'] = $app->share(function() use ($app) {
-            return new HelloController($app);
-        });
-
         $app['Database'] = $app->share(function() use ($app) {
             return new \PDO(
                 'mysql:dbname=' . getenv('BAKSKE_DB') . ';host=' . getenv('BAKSKE_DB_HOST'),
