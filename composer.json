@@ -12,6 +12,10 @@
             "role": "Developer"
         }
     ],
+    "require": {
+        "silex/silex": "~1.3",
+        "swiftmailer/swiftmailer": "~5.4"
+    },
     "require-dev": {
         "zerkalica/phpcs": "dev-master",
         "symfony/yaml": "~2.1",
@@ -22,6 +26,7 @@
     },
     "autoload": {
         "psr-4": {
+            "Teller\\Web\\": "web/",
             "Teller\\": "src/"
         }
     }
