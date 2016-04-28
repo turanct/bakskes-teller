@@ -20,14 +20,16 @@ final class RegistrationService
 
     public function register($name, $email)
     {
+        $secret = Secret::generate();
+
         $registration = new Registration(
             new Name($name),
             new Email($email),
-            Secret::generate()
+            $secret
         );
 
         $this->registrationRepository->persist($registration);
-        $this->notifier->notify($registration);
+        $this->notifier->notify($registration, $secret);
     }
 
     public function confirm($email, $secret)
