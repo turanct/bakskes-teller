@@ -26,8 +26,7 @@ final class RegistrationNotifierSwiftMailer implements RegistrationNotifier
         $message = Swift_Message::newInstance('Bakske Verneuzeld Registratie')
             ->setFrom(array('no-reply@bakske-verneuzeld.be' => 'Bakske Verneuzeld'))
             ->setTo(array((string) $registration->getEmail() => (string) $registration->getName()))
-            ->setBody($body)
-        ;
+            ->setBody($body);
 
         $this->mailer->send($message);
     }
