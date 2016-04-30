@@ -6,4 +6,5 @@ interface LoginTokenRepository
 {
     public function persist(LoginToken $token);
     public function get($token);
+    public function getBySecret($secret);
 }

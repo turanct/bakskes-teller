@@ -30,9 +30,9 @@ final class LoginService
         $this->notifier->sendLoginToken($token);
     }
 
-    public function activateToken($tokenString)
+    public function activateToken($loginSecret)
     {
-        $token = $this->tokenRepository->get($tokenString);
+        $token = $this->tokenRepository->getBySecret($loginSecret);
 
         $token->activate();
 

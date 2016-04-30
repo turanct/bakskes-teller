@@ -73,8 +73,8 @@ class LoginServiceTest extends \PHPUnit_Framework_TestCase
         $tokenRepository = $this->getMock('\\Teller\\Authentication\\LoginTokenRepository');
         $tokenRepository
             ->expects($this->once())
-            ->method('get')
-            ->with($this->equalTo($tokenString))
+            ->method('getBySecret')
+            ->with($this->equalTo($tokenSecret))
             ->willReturn($inactiveToken)
         ;
         $tokenRepository
@@ -89,7 +89,7 @@ class LoginServiceTest extends \PHPUnit_Framework_TestCase
             $notifier
         );
 
-        $service->activateToken($tokenString);
+        $service->activateToken($tokenSecret);
     }
 
     public function test_it_converts_an_active_token_to_a_user()
