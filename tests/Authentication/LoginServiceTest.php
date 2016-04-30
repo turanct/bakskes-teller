@@ -50,15 +50,18 @@ class LoginServiceTest extends \PHPUnit_Framework_TestCase
     public function test_it_activates_a_token()
     {
         $tokenString = 'test token';
+        $tokenSecret = 'test secret';
         $userId = UserId::generate();
         $inactiveToken = new LoginToken(
             $tokenString,
+            $tokenSecret,
             $userId,
             new Email('toon@example.com'),
             false
         );
         $activeToken = new LoginToken(
             $tokenString,
+            $tokenSecret,
             $userId,
             new Email('toon@example.com'),
             true
@@ -100,8 +103,10 @@ class LoginServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $tokenString = 'test token';
+        $tokenSecret = 'test secret';
         $activeToken = new LoginToken(
             $tokenString,
+            $tokenSecret,
             $userId,
             $email,
             true
@@ -142,8 +147,10 @@ class LoginServiceTest extends \PHPUnit_Framework_TestCase
     public function test_it_throws_when_asking_user_for_inactive_token()
     {
         $tokenString = 'test token';
+        $tokenSecret = 'test secret';
         $inactiveToken = new LoginToken(
             $tokenString,
+            $tokenSecret,
             UserId::generate(),
             new Email('toon@example.com'),
             false

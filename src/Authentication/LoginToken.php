@@ -8,13 +8,15 @@ use Teller\Authentication\Exception\TokenAlreadyActive;
 final class LoginToken
 {
     private $token;
+    private $secret;
     private $userId;
     private $email;
     private $active;
 
-    public function __construct($token, UserId $userId, Email $email, $active)
+    public function __construct($token, $secret, UserId $userId, Email $email, $active)
     {
         $this->token = (string) $token;
+        $this->secret = (string) $secret;
         $this->userId = $userId;
         $this->email = $email;
         $this->active = (bool) $active;
@@ -23,8 +25,9 @@ final class LoginToken
     public static function generateFor(User $user)
     {
         $token = md5(uniqid('LoginToken_', true));
+        $secret = md5(uniqid('LoginSecret_', true));
 
-        return new static($token, $user->getId(), $user->getEmail(), false);
+        return new static($token, $secret, $user->getId(), $user->getEmail(), false);
     }
 
     public function activate()

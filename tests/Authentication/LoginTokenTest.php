@@ -17,6 +17,7 @@ class LoginTokenTest extends \PHPUnit_Framework_TestCase
 
         $expectedToken = new LoginToken(
             'test123',
+            'secret123',
             $userId,
             new Email('toon@example.com'),
             false
@@ -33,6 +34,7 @@ class LoginTokenTest extends \PHPUnit_Framework_TestCase
     {
         $inactiveToken = new LoginToken(
             'test123',
+            'secret123',
             UserId::generate(),
             new Email('toon@example.com'),
             false
@@ -52,6 +54,7 @@ class LoginTokenTest extends \PHPUnit_Framework_TestCase
     {
         $inactiveToken = new LoginToken(
             'test123',
+            'secret123',
             UserId::generate(),
             new Email('toon@example.com'),
             true
