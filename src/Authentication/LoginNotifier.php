@@ -4,5 +4,5 @@ namespace Teller\Authentication;
 
 interface LoginNotifier
 {
-    public function sendLoginToken(LoginToken $token);
+    public function sendLoginToken(LoginToken $token, User $user);
 }

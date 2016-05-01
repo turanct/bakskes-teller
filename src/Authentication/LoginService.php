@@ -27,7 +27,7 @@ final class LoginService
         $token = LoginToken::generateFor($user);
 
         $this->tokenRepository->persist($token);
-        $this->notifier->sendLoginToken($token);
+        $this->notifier->sendLoginToken($token, $user);
     }
 
     public function activateToken($loginSecret)

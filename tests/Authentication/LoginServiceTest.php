@@ -35,7 +35,7 @@ class LoginServiceTest extends \PHPUnit_Framework_TestCase
         $notifier
             ->expects($this->once())
             ->method('sendLoginToken')
-            ->with($this->callback($checkToken))
+            ->with($this->callback($checkToken), $this->equalTo($user))
         ;
 
         $service = new LoginService(
