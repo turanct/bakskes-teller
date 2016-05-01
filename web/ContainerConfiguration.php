@@ -54,6 +54,30 @@ final class ContainerConfiguration implements ServiceProviderInterface
         $app['RegistrationController'] = $app->share(function() use ($app) {
             return new RegistrationController($app['RegistrationService']);
         });
+
+        $app['TokenRepository'] = $app->share(function() use ($app) {
+            return new \Teller\Authentication\LoginTokenRepositoryPDO(
+                $app['Database']
+            );
+        });
+
+        $app['LoginNotifier'] = $app->share(function() use ($app) {
+            return new \Teller\Authentication\LoginNotifierSwiftMailer(
+                $app['SwiftMailer']
+            );
+        });
+
+        $app['LoginService'] = $app->share(function() use ($app) {
+            return new \Teller\Authentication\LoginService(
+                $app['UserRepository'],
+                $app['TokenRepository'],
+                $app['LoginNotifier']
+            );
+        });
+
+        $app['LoginController'] = $app->share(function() use ($app) {
+            return new LoginController($app['LoginService']);
+        });
     }
 
     public function boot(Application $app)
