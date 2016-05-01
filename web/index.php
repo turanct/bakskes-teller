@@ -16,4 +16,8 @@ $app->get('/register', 'RegistrationController:registerForm');
 $app->post('/register', 'RegistrationController:register');
 $app->get('/register/confirm/{email}/{secret}', 'RegistrationController:confirm');
 
+$app->get('/login', 'LoginController:loginForm');
+$app->post('/login', 'LoginController:login');
+$app->get('/login/{secret}', 'LoginController:activateToken');
+
 $app->run();
