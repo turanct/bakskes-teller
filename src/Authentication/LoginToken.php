@@ -44,6 +44,11 @@ final class LoginToken
         return $this->active === true;
     }
 
+    public function getSecret()
+    {
+        return $this->secret;
+    }
+
     public function getUserId()
     {
         return $this->userId;
